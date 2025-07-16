@@ -28,6 +28,20 @@ Upload `architecture.png` to the root of your project and it will appear here:
 
 ---
 
+## 📸 Screenshots
+
+### 🟢 1. MP3 File Generated in Audio Folder
+![MP3 Output](./Mp3AudioGenerated.png)
+
+---
+
+### 🟢 2. Lambda Execution Logs in CloudWatch
+![Lambda Logs](./logs.png)
+
+
+
+---
+
 ## ⚙️ AWS Services Used
 
 - **Amazon S3** – For storing input `.txt` and output `.mp3` files  
