@@ -1,21 +1,20 @@
 # The Voice Vault 🎙️
 
-> A serverless AWS project that converts your text notes into podcast-style MP3 audio using Amazon Polly.
+> A fully serverless AWS project that converts `.txt` files into lifelike MP3 audio using Amazon Polly.
 
 ---
 
 ## 🧠 Project Overview
 
-**The Voice Vault** is a simple and efficient serverless application that converts plain text files into spoken audio using Amazon Polly. It’s ideal for listening to your notes like podcasts — anytime, anywhere.
+The Voice Vault is a cloud-native solution that turns your text notes into podcast-style audio. Just upload a `.txt` file to Amazon S3, and a Lambda function will process it with Amazon Polly to generate an MP3, which gets stored back in S3. All activities are logged in CloudWatch for visibility and debugging.
 
 ---
 
-## 🛠️ Technologies Used
+## 🏗️ Architecture Diagram
 
-- **Amazon S3** – For storing `.txt` and `.mp3` files
-- **AWS Lambda** – Automatically triggered to process uploads
-- **Amazon Polly** – Converts uploaded text to speech
-- **Amazon CloudWatch** – Logs Lambda executions
+Upload `architecture.png` to the root of your project and it will appear here:
+
+![Architecture Diagram](./architecture.png)
 
 ---
 
@@ -24,50 +23,49 @@
 1. User uploads `.txt` file to `/notes/` folder in S3
 2. Lambda gets triggered
 3. Text is converted to speech by Polly
-4. Output MP3 is stored in `/audio/` folder in S3
+4. Output MP3 is stored in `/podcasts/` folder in S3
 5. Logs of the process are stored in CloudWatch
 
 ---
 
-## 🏗️ Architecture Diagram
+## ⚙️ AWS Services Used
 
-Here’s a visual representation of the project:
-
-![Architecture Diagram](./images/architecture.png)
-
----
-
-## 📸 Screenshots
-
-### 🟢 1. Uploading a Text File to S3
-![S3 Upload](./images/s3-upload.png)
+- **Amazon S3** – For storing input `.txt` and output `.mp3` files  
+- **AWS Lambda** – Processes files automatically on upload  
+- **Amazon Polly** – Synthesizes speech from text  
+- **Amazon CloudWatch** – Logs Lambda execution details
 
 ---
 
-### 🟢 2. MP3 File Generated in Audio Folder
-![MP3 Output](./images/mp3-output.png)
+## 📜 Lambda Function Code (Python)
 
----
+```python
+import boto3
 
-### 🟢 3. Lambda Execution Logs in CloudWatch
-![Lambda Logs](./images/lambda-logs.png)
+def lambda_handler(event, context):
+    s3 = boto3.client('s3')
+    polly = boto3.client('polly')
 
----
+    # Extract bucket and key from S3 trigger
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = event['Records'][0]['s3']['object']['key']
+    
+    # Read text file from S3
+    response = s3.get_object(Bucket=bucket, Key=key)
+    text = response['Body'].read().decode('utf-8')
 
-### 🟢 4. Listening to Audio File from S3
-![Listen in S3](./images/s3-listen.png)
+    # Convert to speech with Polly
+    audio_stream = polly.synthesize_speech(
+        Text=text,
+        OutputFormat='mp3',
+        VoiceId='Joanna'
+    )['AudioStream']
 
----
+    # Save output to /audio/ folder
+    output_key = key.replace('notes/', 'audio/').replace('.txt', '.mp3')
+    s3.put_object(Bucket=bucket, Key=output_key, Body=audio_stream.read())
 
-##  How to Use
-
-1. Upload any `.txt` note to your S3 bucket under `/notes/`
-2. Wait a few seconds — Lambda will process it
-3. Check the `/audio/` folder for your MP3 file
-4. View logs in CloudWatch if needed
-
----
-
-
-
-
+    return {
+        'statusCode': 200,
+        'body': f'MP3 created and saved to {output_key}'
+    }
