@@ -36,7 +36,7 @@ Upload `architecture.png` to the root of your project and it will appear here:
 ---
 
 ### 🟢 2. Lambda Execution Logs in CloudWatch
-![Lambda Logs](./logs.png)
+![Lambda Logs](./Logs.png)
 
 
 
