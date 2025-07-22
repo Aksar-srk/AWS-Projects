@@ -13,6 +13,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 - [Complete Step-by-Step Setup Guide](#complete-step-by-step-setup-guide)
 - [Frontend Code](#frontend-code)
 - [Challengs I Faces](#challengs-i-faces)
+- [What I Learned](#what)
 - [Final Thoughts](#final-thoughts)
 
 ---
@@ -474,7 +475,7 @@ def lambda_handler(event, context):
 - How to troubleshoot permissions and CORS issues  
 - How to host a static frontend with backend AWS services
 - How to use ChatGpt
-- 
+  
 ##  Final Thoughts
 
 This project demonstrates how to use AWS services to build a powerful and searchable image tagging application. It covered:
