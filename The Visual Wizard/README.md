@@ -75,8 +75,8 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 
 1. Create a bucket named `visual-wizard-photos`
 2. Inside it, create a folder named `images/`
-3. ![Upload Flow](images/ImageUpload.png)
-4. Set the bucket policy for public upload and read access:
+![Upload Flow](images/ImageUpload.png)
+3. Set the bucket policy for public upload and read access:
 
 ```json
 {
@@ -104,8 +104,8 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 
 1. Name: `VisualWizardProcessor`
 2. Trigger: S3 PUT on `visual-wizard-photos/images/`
-3. ![S3 Teigger](images/S3TriggerLambda.png)
-4. Add the following IAM Policy:
+![S3 Teigger](images/S3TriggerLambda.png)
+3. Add the following IAM Policy:
 
 ```json
 {
@@ -126,7 +126,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
   ]
 }
 ```
-5. Deploy Lambda function Python code :
+4. Deploy Lambda function Python code :
 
 ```python
 import boto3
@@ -180,13 +180,13 @@ def lambda_handler(event, context):
 - Create DynamoDB Table: `imagetable`
   - Partition key: `ImageKey`
   - Store labels as string list and metadata (e.g., timestamp)
-  - ![DynamoDB Entry](images/DynamodbTableItems.png)
+![DynamoDB Entry](images/DynamodbTableItems.png)
 
 ###  Phase 5: API Gateway + Search Lambda
 
 1. Create Lambda: `SearchImageByTagFunction`
-2. ![Lambda Funtion Creation](images/Lambda2.png)
-3. Add IAM Policy:
+![Lambda Funtion Creation](images/Lambda2.png)
+2. Add IAM Policy:
 
 ```json
 {
@@ -211,7 +211,7 @@ def lambda_handler(event, context):
     ]
 
 ```
-4. Deploy Lambda function Python code :
+3. Deploy Lambda function Python code :
 ```python
 import json
 import boto3
@@ -245,19 +245,19 @@ def lambda_handler(event, context):
  ```
 
 
-6. Create a GET method with query string param `tag` using API Gateway
-7. ![GET method creation](images/GETmethod.png)
-8. Integrate this API with `SearchImageByTagFunction` Lambda
-9. ![DynamoDB Entry](images/Lambda+APIGateway.png)
+4. Create a GET method with query string param `tag` using API Gateway
+5. ![GET method creation](images/GETmethod.png)
+6. Integrate this API with `SearchImageByTagFunction` Lambda
+7. ![DynamoDB Entry](images/Lambda+APIGateway.png)
 
 ###  Phase 6–7: Frontend + Static Hosting
 
 1. Create a new S3 bucket: `visual-wizard-web`
-2. ![Bucket Creation](images/TwoBuckets.png)
-3. Upload `index.html` file
-4. ![Uploaded File](images/IndexUpload.png)
-5. Enable static hosting
-7. CORS config for `visual-wizard-photos`:
+![Bucket Creation](images/TwoBuckets.png)
+2. Upload `index.html` file
+![Uploaded File](images/IndexUpload.png)
+3. Enable static hosting
+4. CORS config for `visual-wizard-photos`:
 
 ```json
 [
