@@ -13,7 +13,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 - [Complete Step-by-Step Setup Guide](#complete-step-by-step-setup-guide)
 - [Frontend Code](#frontend-code)
 - [Challengs I Faces](#challengs-i-faces)
-- [What I Learned](#what)
+- [What I Learned](#what-i-learned)
 - [Final Thoughts](#final-thoughts)
 
 ---
