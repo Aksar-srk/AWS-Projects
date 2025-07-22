@@ -1,10 +1,10 @@
-# 🧙‍♂️ The Visual Wizard
+#  The Visual Wizard
 
 Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, and DynamoDB — all accessible via a web frontend.
 
 ---
 
-## 📌 Table of Contents
+##  Table of Contents
 
 - [Project Overview](#project-overview)
 - [Architecture Diagram](#architecture-diagram)
@@ -18,7 +18,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 
 ---
 
-## 🚀 Project Overview
+##  Project Overview
 
 **The Visual Wizard** is an intelligent image processing pipeline that allows users to:
 
@@ -39,13 +39,13 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 
 ---
 
-## 🧱 Architecture Diagram
+##  Architecture Diagram
 
 >
-
+![](images/Architrcture.png)
 ---
 
-## 🌍 Real-World Use Cases
+##  Real-World Use Cases
 
 - **E-Commerce**: Automatically categorize product images for easier inventory management.
 - **Medical Imaging**: Auto-label and search through X-rays, MRI scans, etc.
@@ -54,7 +54,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 
 ---
 
-## 📋 Phase-wise Implementation Plan
+##  Phase-wise Implementation Plan
 
 | Phase | Task                                        | Tools/Services       |
 | ----- | ------------------------------------------- | -------------------- |
@@ -63,14 +63,15 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 | 3️⃣   | Auto-label image using Rekognition          | Rekognition          |
 | 4️⃣   | Store labels + image info                   | DynamoDB             |
 | 5️⃣   | Create API to search images by tags         | API Gateway + Lambda |
-| 6️⃣   | Build web page to upload/search/view images | HTML + JS            |
+| 6️⃣   | Build web page to upload/search/view images | HTML        |
 | 7️⃣   | Host the webpage for free                   | S3 Static Hosting    |
+| 7️⃣   | CloudWatch                                  | Logs Lambda events for debugging and monitoring |
 
 ---
 
-## 🛠️ Complete Step-by-Step Setup Guide
+##  Complete Step-by-Step Setup Guide
 
-### 📁 Phase 1: Upload Images to S3
+###  Phase 1: Upload Images to S3
 
 1. Create a bucket named `visual-wizard-photos`
 2. Inside it, create a folder named `images/`
@@ -99,7 +100,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 }
 ```
 
-### ⚙️ Phase 2: Create Lambda Function for Image Labeling
+###  Phase 2: Create Lambda Function for Image Labeling
 
 1. Name: `VisualWizardProcessor`
 2. Trigger: S3 PUT on `visual-wizard-photos/images/`
@@ -173,7 +174,7 @@ def lambda_handler(event, context):
    - Partition Key: `ImageKey` (string)
    
 
-### 🔍 Phase 3–4: Setup Rekognition and DynamoDB
+###  Phase 3–4: Setup Rekognition and DynamoDB
 
 - No extra setup for Rekognition (built-in AWS)
 - Create DynamoDB Table: `imagetable`
@@ -181,7 +182,7 @@ def lambda_handler(event, context):
   - Store labels as string list and metadata (e.g., timestamp)
   - ![DynamoDB Entry](images/phase2-tags.png)
 
-### 🌐 Phase 5: API Gateway + Search Lambda
+###  Phase 5: API Gateway + Search Lambda
 
 1. Create Lambda: `SearchImageByTagFunction`
 2. ![Lambda Funtion Creation](images/SecondLambda.png)
@@ -249,14 +250,14 @@ def lambda_handler(event, context):
 8. Integrate this API with `SearchImageByTagFunction` Lambda
 9. ![DynamoDB Entry](images/Lambda+APIGateway.png)
 
-### 🧑‍💻 Phase 6–7: Frontend + Static Hosting
+###  Phase 6–7: Frontend + Static Hosting
 
 1. Create a new S3 bucket: `visual-wizard-web`
 2. ![Bucket Creation](images/bucketimage.png)
 3. Upload `index.html` file
 4. ![Uploaded File](images/indexupload.png)
 5. Enable static hosting
-6. CORS config for `visual-wizard-photos`:
+7. CORS config for `visual-wizard-photos`:
 
 ```json
 [
@@ -280,11 +281,15 @@ def lambda_handler(event, context):
 
 ]
 ```
+- A simple HTML page allows users to:
+  - Upload new images
+  - Search for existing images by tag
+- Static website hosted on the `visual-wizard-web` S3 bucket
  ![DynamoDB Entry](images/Frontend.png)
 
 ---
 
-## 🧑‍💻 Frontend Code (index.html)
+##  Frontend Code (index.html)
 
 ```html
 <!DOCTYPE html>
@@ -434,8 +439,24 @@ def lambda_handler(event, context):
 ```
 
 ---
+##  CloudWatch
+- Amazon CloudWatch Logs plays a crucial role in debugging and monitoring Lambda functions.
+- You can monitor how often the function runs.
+- Useful for debugging issues like:
+  Missing tags from Rekognition
+  Errors while writing to DynamoDB
+  Incorrect event structure from S3 trigger
+ ![DynamoDB Entry](images/Frontend.png)
+ ![DynamoDB Entry](images/Frontend.png)
+ ![DynamoDB Entry](images/Frontend.png)
+ ![DynamoDB Entry](images/Frontend.png)
+
 
 ## Challengs I Faces
+- Upload failures due to missing bucket permissions and CORS settings  
+- Broken image previews due to incorrect object paths or public access  
+- Policy troubleshooting with S3, Rekognition, and DynamoDB permissions  
+- All resolved with appropriate policy edits and debugging using CloudWatch logs
 
 | Challenge                          | Solution                                                              |
 | ---------------------------------- | --------------------------------------------------------------------- |
@@ -445,8 +466,15 @@ def lambda_handler(event, context):
 | JSON-only CORS config in S3        | Used correct JSON format in CORS section of S3                        |
 
 
+##  What I Learned
 
-## ✅ Final Thoughts
+- How to build a fully serverless image analysis pipeline  
+- How to integrate AWS Rekognition, DynamoDB, and API Gateway  
+- How to troubleshoot permissions and CORS issues  
+- How to host a static frontend with backend AWS services
+- How to use ChatGpt
+- 
+##  Final Thoughts
 
 This project demonstrates how to use AWS services to build a powerful and searchable image tagging application. It covered:
 
