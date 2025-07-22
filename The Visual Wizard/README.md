@@ -11,9 +11,8 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 - [Real-World Use Cases](#real-world-use-cases)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
 - [Complete Step-by-Step Setup Guide](#complete-step-by-step-setup-guide)
-- [IAM Policies](#iam-policies)
 - [Frontend Code](#frontend-code)
-- [Screenshots](#screenshots)
+- [Challenges I Faced](#challengs-i-faced)
 - [Final Thoughts](#final-thoughts)
 
 ---
