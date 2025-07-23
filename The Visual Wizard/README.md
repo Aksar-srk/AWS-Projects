@@ -42,7 +42,7 @@ Automatically tag and search images using AWS Rekognition, Lambda, API Gateway, 
 ##  Architecture Diagram
 
 >
-![](./ArchitectureDiagram.png)
+![](./Architecture.png)
 ---
 
 ##  Real-World Use Cases
