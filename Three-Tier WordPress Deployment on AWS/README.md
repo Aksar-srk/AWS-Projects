@@ -67,6 +67,24 @@ The infrastructure was built **step-by-step from scratch** using the AWS Free Ti
 
 ---
 
+🔄 How It Works in a Web Request
+User opens your WordPress site.
+
+Browser sends HTTP request to the Load Balancer.
+
+Load Balancer forwards it to one of the EC2 instances.
+
+EC2 runs Apache/Nginx + PHP, which loads WordPress code.
+
+WordPress:
+
+Reads PHP code
+
+Pulls dynamic content from MySQL (RDS)
+
+Builds and returns a full HTML page to the user
+
+
 ## 📋 Phase-wise Implementation Plan
 
 | Phase | AWS Services Used | Description |
