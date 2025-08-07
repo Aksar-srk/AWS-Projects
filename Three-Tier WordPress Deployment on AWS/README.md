@@ -108,9 +108,10 @@ In this phase, we laid the foundation for our secure, isolated network environme
 ### 🔧 VPC Configuration
 
 - **VPC Name:** `wildpress-vpc`
+![VPC Setup](images/VPC.png)
 - **CIDR Block:** `10.0.0.0/16`
 - **DNS Hostnames:** Enabled
-![VPC Setup](images/VPC.png)
+
 
 ### 🌐 Subnets Created
 
@@ -123,7 +124,8 @@ In this phase, we laid the foundation for our secure, isolated network environme
 | Private     | private-db-subnet-a   | us-east-1a        | 10.0.5.0/24    |
 | Private     | private-db-subnet-b   | us-east-1b        | 10.0.6.0/24    |
 
-![VPC Setup](Subnets.png)
+![VPC Setup](images/Subnets.png)
+
 ### 🌉 Internet Gateway
 
 - **Name:** `wildpress-igw`
