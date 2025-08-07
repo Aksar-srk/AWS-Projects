@@ -103,7 +103,7 @@ Builds and returns a full HTML page to the user
 
 ---
 
-##  Phase 1: VPC and Networking Setup
+## Phase 1: VPC and Networking Setup
 
 In this phase, we laid the foundation for our secure, isolated network environment using Amazon VPC.
 
@@ -170,7 +170,7 @@ In this phase, we laid the foundation for our secure, isolated network environme
 
 ---
 
-## 🖥 Phase 2: EC2 Instance Deployment 
+##  Phase 2: EC2 Instance Deployment 
 
 In this phase, we set up the compute layer for our WordPress application:
 We launched 3 EC2 instances:
