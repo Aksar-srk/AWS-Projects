@@ -7,7 +7,7 @@ This project showcases the deployment of a **high-availability WordPress website
 ## 📑 Table of Contents
 
 - [Project Overview](#project-overview)
-- [🛠️ Technologies Used](#🛠️-technologies-used)
+- [🛠️ Technologies Used](#🛠️technologies-used)
 - [Architecture Diagram](#architecture-diagram)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
 - [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-network-setup)
