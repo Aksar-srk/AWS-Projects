@@ -186,11 +186,11 @@ Configuration:
   - Allow HTTP (80) from `wildpress-alb-sg`
     
 📸 Screenshot:
-![VPC Setup](images/Ec2Instance.png)
+![VPC Setup](images/Ec2Instances.png)
 
 - Launched a Bastion Host (`wildpress-bastion`) in a public subnet to securely access private EC2 instances using SSH.
 
-![VPC Setup](images/BastonEc2Instance.png)
+![VPC Setup](images/BastionInstance.png)
 
 - Installed and configured Apache, PHP, and WordPress on both instances to serve dynamic web content.
 - Configured appropriate Security Groups to allow:
