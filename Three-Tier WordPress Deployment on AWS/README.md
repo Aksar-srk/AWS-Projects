@@ -4,21 +4,7 @@ This project showcases the deployment of a **high-availability WordPress website
 
 
 ---
-## 📑 Table of Contents
 
-- [Project Overview](#project-overview)
-- [Technologies Used](#technologies-used)
-- [Architecture Diagram](#architecture-diagram)
-- [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
-- [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-networking-setup)
-- [Phase 2: EC2 Instance Deployment](#phase-2-ec2-instance-deployment)
-- [Phase 3: RDS MySQL Setup](#phase-3-rds-mysql-setup)
-- [Phase 4: Load Balancer](#phase-4-load-balancer)
-- [Phase 5: EFS Setup Shared Storage](#phase-5-efs-setup-shared-storage)
-- [Phase 6: Testing the Project](#phase-6-testing-the-project)
-- [Challenges I Faced](#challenges-i-faced)
-- [What I Learnt](#what-i-learnt)
-- [Final Thoughts](#final-thoughts)
 
 ## 📑 Table of Contents
 
@@ -55,7 +41,7 @@ The infrastructure was built **step-by-step from scratch** using the AWS Free Ti
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 | Category               | Service / Tool           | Purpose                                                                 |
 |------------------------|--------------------------|-------------------------------------------------------------------------|
@@ -76,7 +62,7 @@ The infrastructure was built **step-by-step from scratch** using the AWS Free Ti
 
 ---
 
-## 🖼️ Architecture Diagram
+## Architecture Diagram
 
 ![Architecture Diagram](images/three-tier-architecture.png)
 
@@ -101,7 +87,7 @@ Builds and returns a full HTML page to the user
 
 --- -->
 
-## 📋 Phase-wise Implementation Plan
+##  Phase-wise Implementation Plan
 
 | Phase | AWS Services Used | Description |
 |-------|-------------------|-------------|
@@ -117,7 +103,7 @@ Builds and returns a full HTML page to the user
 
 ---
 
-## 📌 Phase 1: VPC and Networking Setup
+##  Phase 1: VPC and Networking Setup
 
 In this phase, we laid the foundation for our secure, isolated network environment using Amazon VPC.
 
@@ -144,14 +130,14 @@ In this phase, we laid the foundation for our secure, isolated network environme
 📸 Screenshot:
 ![VPC Setup](images/Subnets.png)
 
-### 🌉 Internet Gateway
+###  Internet Gateway
 
 - **Name:** `wildpress-igw`
 - **Attached to VPC:** `wildpress-vpc`
 📸 Screenshot:
 ![VPC Setup](images/InternetGateway.png)
 
-### 📑 Route Tables
+###  Route Tables
 - **Route Tables:** Configured for public and private subnets
   
 - **Public Route Table**
@@ -168,7 +154,7 @@ In this phase, we laid the foundation for our secure, isolated network environme
 📸 Screenshot:
 ![VPC Setup](images/RouteTablePrivate.png)
 
-### 🚪 NAT Gateway Setup
+###  NAT Gateway Setup
 
 - **Elastic IP:** `wildpress-nat-eip`
 - **NAT Gateway Name:** `wildpress-nat-gateway`
@@ -184,7 +170,7 @@ In this phase, we laid the foundation for our secure, isolated network environme
 
 ---
 
-## 🖥️ Phase 2: EC2 Instance Deployment 
+## 🖥 Phase 2: EC2 Instance Deployment 
 
 In this phase, we set up the compute layer for our WordPress application:
 We launched 3 EC2 instances:
@@ -219,7 +205,7 @@ Configuration:
 
 ---
 
-## 🛢️ Phase 3: RDS MySQL Setup
+##  Phase 3: RDS MySQL Setup
 
 In this phase, we set up the database layer for persistent storage:
 
@@ -268,7 +254,7 @@ RDS Access from EC2 (via Bastion)
 
 ---
 
-## ⚖️ Phase 4: Load Balancer
+##  Phase 4: Load Balancer
 
 - Created an **Application Load Balancer (ALB)** named `wildpress-alb`
 - Configured in the **public subnets** of VPC `wildpress-vpc` across two Availability Zones (`us-east-1a`, `us-east-1b`)
@@ -294,7 +280,7 @@ The ALB evenly distributes incoming web traffic across multiple EC2 app instance
 
 ---
 
-## 📂 Phase 5: EFS Setup (Shared Storage)
+##  Phase 5: EFS Setup (Shared Storage)
 
 - Created an **Elastic File System (EFS)** named `wildpress-efs`
 - Deployed inside the **same VPC** (`wildpress-vpc`) with mount targets in both private subnets (`us-east-1a` and `us-east-1b`)
@@ -326,7 +312,7 @@ EFS provides shared storage between the two app servers. This is essential for W
 
 ---
 
-## ✅ Phase 6: Testing the Project
+##  Phase 6: Testing the Project
 
 - After setting up the **Application Load Balancer**, we copied its **DNS name** (e.g., `wildpress-alb-1234567890.us-east-1.elb.amazonaws.com`)
 - Pasted the DNS into a web browser to test the live application
@@ -371,7 +357,7 @@ Our WordPress site is now accessible globally via the ALB DNS. The setup support
   
 ---
 
-## 🚧 Challenges I Faced
+##  Challenges I Faced
 
 - **EC2 Access via Bastion**: Initially misconfigured security groups, which blocked SSH access to private EC2 instances.  
   ✅ *Solved by allowing inbound SSH only from the bastion’s private IP in the security group.*
@@ -393,7 +379,7 @@ Our WordPress site is now accessible globally via the ALB DNS. The setup support
 
 ---
 
-## 📘 What I Learnt
+##  What I Learnt
 
 - How to design and deploy a **highly available three-tier architecture** using AWS services.
 - The importance of **public vs. private subnets**, and how to secure infrastructure using VPC and security groups.
@@ -408,7 +394,7 @@ Our WordPress site is now accessible globally via the ALB DNS. The setup support
 
 ---
 
-## ✅ Final Thoughts
+##  Final Thoughts
 
 This project helped me understand the real-world implementation of a scalable and secure web application using AWS. By building each layer step-by-step — from networking to storage and application deployment using a production-style three-tier architecture on AWS. Each component — EC2, RDS, ALB, EFS — played a crucial role in building a reliable, distributed system. From security best practices to testing DNS endpoints, — I gained practical experience that goes beyond basic tutorials. The combination of theory and hands-on work helped solidify my understanding of AWS architecture and services.
 
