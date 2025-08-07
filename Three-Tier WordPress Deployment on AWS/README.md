@@ -22,6 +22,7 @@ This project showcases the deployment of a **high-availability WordPress website
 
 ## 📑 Table of Contents
 
+
 - [Project Overview](#project-overview)
 - [Technologies Used](#🛠️technologies-used)
 - [Architecture Diagram](#architecture-diagram)
