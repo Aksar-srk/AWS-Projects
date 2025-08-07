@@ -10,10 +10,10 @@ This project showcases the deployment of a **high-availability WordPress website
 
 
 - [Project Overview](#project-overview)
-- [Technologies Used](#🛠️technologies-used)
+- [Technologies Used](#technologies-used)
 - [Architecture Diagram](#architecture-diagram)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
-- [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-network-setup)
+- [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-networking-setup)
 - [Phase 2: EC2 Instance Deployment](#phase-2-ec2-instance-Deployment)
 - [Phase 3: RDS MySQL Setup](#phase-3-rds-mysql-setup)
 - [Phase 4: Load Balancer ](#phase-4-load-balancer)
@@ -170,7 +170,7 @@ In this phase, we laid the foundation for our secure, isolated network environme
 
 ---
 
-##  Phase 2: EC2 Instance Deployment 
+## Phase 2: EC2 Instance Deployment
 
 In this phase, we set up the compute layer for our WordPress application:
 We launched 3 EC2 instances:
