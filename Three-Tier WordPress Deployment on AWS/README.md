@@ -1,12 +1,13 @@
-# 🏗️ Three-Tier WordPress Deployment on AWS
+# 🌐 Three-Tier WordPress Deployment on AWS
 
 This project showcases the deployment of a **high-availability WordPress website** using the **Three-Tier Architecture** model on AWS. The infrastructure includes a **Load Balancer**, **Auto-Scaling EC2 instances**, **RDS for MySQL**, and **EFS for shared storage**, all managed across public and private subnets.
+
 
 ---
 ## 📑 Table of Contents
 
 - [Project Overview](#project-overview)
-- [Technologies Used](#technologies-used)
+- [🛠️ Technologies Used](#🛠️-technologies-used)
 - [Architecture Diagram](#architecture-diagram)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
 - [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-network-setup)
