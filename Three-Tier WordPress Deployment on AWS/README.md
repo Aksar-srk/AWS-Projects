@@ -7,7 +7,23 @@ This project showcases the deployment of a **high-availability WordPress website
 ## 📑 Table of Contents
 
 - [Project Overview](#project-overview)
-- [🛠️ Technologies Used](#🛠️technologies-used)
+- [Technologies Used](#technologies-used)
+- [Architecture Diagram](#architecture-diagram)
+- [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
+- [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-networking-setup)
+- [Phase 2: EC2 Instance Deployment](#phase-2-ec2-instance-deployment)
+- [Phase 3: RDS MySQL Setup](#phase-3-rds-mysql-setup)
+- [Phase 4: Load Balancer](#phase-4-load-balancer)
+- [Phase 5: EFS Setup Shared Storage](#phase-5-efs-setup-shared-storage)
+- [Phase 6: Testing the Project](#phase-6-testing-the-project)
+- [Challenges I Faced](#challenges-i-faced)
+- [What I Learnt](#what-i-learnt)
+- [Final Thoughts](#final-thoughts)
+
+## 📑 Table of Contents
+
+- [Project Overview](#project-overview)
+- [Technologies Used](#🛠️technologies-used)
 - [Architecture Diagram](#architecture-diagram)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
 - [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-network-setup)
