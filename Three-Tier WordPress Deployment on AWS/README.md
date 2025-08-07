@@ -184,6 +184,7 @@ Configuration:
 - **Security Group**:  
   - Allow SSH from `wildpress-bastion-sg`  
   - Allow HTTP (80) from `wildpress-alb-sg`
+    
 📸 Screenshot:
 ![VPC Setup](images/Ec2Instance.png)
 
