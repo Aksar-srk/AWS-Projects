@@ -9,19 +9,15 @@ This project showcases the deployment of a **high-availability WordPress website
 - [Technologies Used](#technologies-used)
 - [Architecture Diagram](#architecture-diagram)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
-- [Phase 1: VPC Setup](#phase-1-vpc-setup)
-- [Phase 2: EC2 Instance Setup (WordPress)](#phase-2-ec2-instance-setup-wordpress)
-  - [2.1 Launch EC2 Instances in Private Subnets](#21-launch-ec2-instances-in-private-subnets)
-  - [2.2 Configure Bastion Host](#22-configure-bastion-host)
-  - [2.3 Configure WordPress & Apache](#23-configure-wordpress--apache)
+- [Phase 1: VPC and Networking Setup](#phase-1-vpc-and-network-setup)
+- [Phase 2: EC2 Instance Deployment](#phase-2-ec2-instance-Deployment)
 - [Phase 3: RDS MySQL Setup](#phase-3-rds-mysql-setup)
-- [Phase 4: Application Load Balancer Setup](#phase-4-application-load-balancer-setup)
+- [Phase 4: Load Balancer ](#phase-4-load-balancer)
 - [Phase 5: EFS Setup (Shared Storage)](#phase-5-efs-setup-shared-storage)
-- [Phase 6: WordPress Configuration](#phase-6-wordpress-configuration)
-- [Security Groups](#security-groups)
-- [Screenshots](#screenshots)
-- [Challenges Faced](#challenges-faced)
-- [Conclusion](#conclusion)
+- [Phase 6: Testing the Project](#phase-6-testing-the-project).
+- [Challenges I Faced](#challenges-i-faced)
+- [What I Learnt](#what-i-learnt)
+- [Final Thoughts](#final-thoughts)
 
 
 ---
@@ -68,7 +64,7 @@ The infrastructure was built **step-by-step from scratch** using the AWS Free Ti
 
 ---
 
-🔄 How It Works in a Web Request
+<!-- 🔄 How It Works in a Web Request
 User opens your WordPress site.
 
 Browser sends HTTP request to the Load Balancer.
@@ -85,7 +81,7 @@ Pulls dynamic content from MySQL (RDS)
 
 Builds and returns a full HTML page to the user
 
----
+--- -->
 
 ## 📋 Phase-wise Implementation Plan
 
@@ -170,7 +166,7 @@ In this phase, we laid the foundation for our secure, isolated network environme
 
 ---
 
-## 🖥️ Phase 2: EC2 Instance Deployment (Application Layer)
+## 🖥️ Phase 2: EC2 Instance Deployment 
 
 In this phase, we set up the compute layer for our WordPress application:
 We launched 3 EC2 instances:
@@ -205,7 +201,7 @@ Configuration:
 
 ---
 
-## 🛢️ Phase 3: RDS (MySQL)
+## 🛢️ Phase 3: RDS MySQL Setup
 
 In this phase, we set up the database layer for persistent storage:
 
@@ -280,7 +276,7 @@ The ALB evenly distributes incoming web traffic across multiple EC2 app instance
 
 ---
 
-## 📂 Phase 5: EFS (Elastic File System)
+## 📂 Phase 5: EFS Setup (Shared Storage)
 
 - Created an **Elastic File System (EFS)** named `wildpress-efs`
 - Deployed inside the **same VPC** (`wildpress-vpc`) with mount targets in both private subnets (`us-east-1a` and `us-east-1b`)
