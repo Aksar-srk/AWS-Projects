@@ -5,7 +5,7 @@ This project showcases the deployment of a **high-availability WordPress website
 ---
 ## 📑 Table of Contents
 
-- [📘 Project Overview](#project-overview)
+- [Project Overview](#project-overview)
 - [Technologies Used](#technologies-used)
 - [Architecture Diagram](#architecture-diagram)
 - [Phase-wise Implementation Plan](#phase-wise-implementation-plan)
@@ -21,7 +21,7 @@ This project showcases the deployment of a **high-availability WordPress website
 
 
 ---
-## 📘 Project Overview
+##  Project Overview
 
 This project demonstrates a complete **Three-Tier Architecture WordPress Deployment on AWS**, built using core AWS services like **VPC, EC2, RDS, EFS, and ALB**. The goal was to create a **highly available, scalable, and secure** infrastructure for hosting WordPress across multiple EC2 instances using shared storage and a central MySQL database.
 
