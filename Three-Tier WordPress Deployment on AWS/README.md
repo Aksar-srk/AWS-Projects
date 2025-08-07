@@ -110,6 +110,7 @@ In this phase, we laid the foundation for our secure, isolated network environme
 - **VPC Name:** `wildpress-vpc`
 - **CIDR Block:** `10.0.0.0/16`
 - **DNS Hostnames:** Enabled
+![VPC Setup](images/VPC.png)
 
 ### 🌐 Subnets Created
 
@@ -122,10 +123,12 @@ In this phase, we laid the foundation for our secure, isolated network environme
 | Private     | private-db-subnet-a   | us-east-1a        | 10.0.5.0/24    |
 | Private     | private-db-subnet-b   | us-east-1b        | 10.0.6.0/24    |
 
+![VPC Setup](Subnets.png)
 ### 🌉 Internet Gateway
 
 - **Name:** `wildpress-igw`
 - **Attached to VPC:** `wildpress-vpc`
+![VPC Setup](images/InternetGateway.png)
 
 ### 📑 Route Tables
 - **Route Tables:** Configured for public and private subnets
@@ -134,11 +137,15 @@ In this phase, we laid the foundation for our secure, isolated network environme
   - **Name:** `wildpress-public-rt`
   - **Route:** `0.0.0.0/0` → Internet Gateway
   - **Associated Subnets:** `public-subnet-a`, `public-subnet-b`
+  
+  ![VPC Setup](images/RouteTableePublic.png)
 
 - **Private Route Table**
   - **Name:** `wildpress-private-rt`
   - **Route:** `0.0.0.0/0` → NAT Gateway *(created in Step 5)*
   - **Associated Subnets:** `private-app-subnet-a`, `private-app-subnet-b`
+
+  ![VPC Setup](RouteTablePrivate.png)
 
 ### 🚪 NAT Gateway Setup
 
@@ -146,6 +153,8 @@ In this phase, we laid the foundation for our secure, isolated network environme
 - **NAT Gateway Name:** `wildpress-nat-gateway`
 - **Subnet:** `public-subnet-a`
 - **Attached EIP:** `wildpress-nat-eip`
+
+![VPC Setup](ElasticIp.png)
 
 > ✅ **Why Public Subnets & ALB?**
 >
@@ -171,7 +180,13 @@ Configuration:
 - **Security Group**:  
   - Allow SSH from `wildpress-bastion-sg`  
   - Allow HTTP (80) from `wildpress-alb-sg`
+
+![VPC Setup](images/Ec2Instance.png)
+
 - Launched a Bastion Host (`wildpress-bastion`) in a public subnet to securely access private EC2 instances using SSH.
+
+![VPC Setup](images/BastonEc2Instance.png)
+
 - Installed and configured Apache, PHP, and WordPress on both instances to serve dynamic web content.
 - Configured appropriate Security Groups to allow:
 🔐 Security Groups:
@@ -196,8 +211,13 @@ In this phase, we set up the database layer for persistent storage:
 
 - Launched an Amazon RDS MySQL instance named `wildpress-db`.
 - Deployed it in private subnets (`private-db-subnet-a` and `private-db-subnet-b`) within the `wildpress-vpc` to enhance security.
+
+  ![VPC Setup](images/RDS.png)
+  
 - Opted for a single Availability Zone deployment to stay within AWS Free Tier limits (Multi-AZ disabled).
 - Created a DB subnet group and associated it with the RDS instance to define eligible private subnets for deployment.
+
+  ![VPC Setup](images/SubnetGroupRDS.png)
 - Configured a security group for the RDS instance to allow inbound MySQL (port 3306) traffic **only** from the EC2 application layer's security group.
 - Enabled storage auto-scaling and automatic backups.
 - Connected the WordPress application (hosted on EC2) to the RDS database using its private endpoint (internal DNS), ensuring that no public access to the database is allowed.
@@ -230,7 +250,7 @@ RDS Access from EC2 (via Bastion)
 - Verified WordPress database connectivity and successful installation during the setup process.
 
 📸 Screenshot:
-![RDS Setup](images/rds-setup.png)
+![RDS Setup](images/WordpressPHP.png)
 
 ---
 
@@ -246,33 +266,37 @@ RDS Access from EC2 (via Bastion)
   - Registered both app instances: `wildpress-app-a` and `wildpress-app-b`
   - Enabled health checks on `/` path using HTTP protocol
 - Set up a **Listener Rule** on port 80 forwarding all traffic to `wildpress-tg`
+
+![VPC Setup](images/TargetGroupUH.png)
+
 - Verified that the ALB routes requests to healthy targets in round-robin
 - Used the ALB **DNS name** (e.g., `wildpress-alb-123456789.us-east-1.elb.amazonaws.com`) to access the WordPress site in browser
 
 📝 **Purpose**:  
 The ALB evenly distributes incoming web traffic across multiple EC2 app instances. It ensures **high availability** and **fault tolerance**. Placing it in public subnets allows internet-facing traffic to reach the private EC2 app layer securely through ALB.
 
-
 📸 Screenshot:
-![ALB Setup](images/alb-setup.png)
+![ALB Setup](images/ALB1.png)
 
 ---
 
 ## 📂 Phase 5: EFS (Elastic File System)
 
-- Created `wildpress-efs` for shared storage
-- Attached to both App EC2s using NFS mounting in `/var/www/html`
-- Ensured PHP, Apache, WordPress installed and mounted correctly
-
-## 📂 Phase 5: EFS (Elastic File System)
-
 - Created an **Elastic File System (EFS)** named `wildpress-efs`
 - Deployed inside the **same VPC** (`wildpress-vpc`) with mount targets in both private subnets (`us-east-1a` and `us-east-1b`)
+
+  ![VPC Setup](images/EFS2.png)
+  
+  ![VPC Setup](images/EFS1.png)
+
 - Associated EFS with a **security group** `wildpress-efs-sg` allowing NFS traffic (port 2049) from the app instances' security group (`wildpress-app-sg`)
 - Installed the EFS mount helper on both EC2 app instances:
 
   ```bash
   sudo yum install -y amazon-efs-utils
+
+![VPC Setup](images/EFS-bsh1.png)
+
 - Created a shared mount point directory on both app instances:
   ```bash
   sudo mkdir /var/www/html/wp-content/uploads
@@ -280,6 +304,9 @@ The ALB evenly distributes incoming web traffic across multiple EC2 app instance
   ```bash
   sudo mount -t efs -o tls <EFS-FILE-SYSTEM-ID>:/ /var/www/html/wp-content/uploads
 - Verified that files uploaded through one app instance (e.g., via WordPress media library, creting a text file on one instance and look the file in other instance ) are visible on the other instance
+
+![VPC Setup](images/EFS-bash-check-uploades.png)
+
 📝 Purpose:
 EFS provides shared storage between the two app servers. This is essential for WordPress media uploads, ensuring consistency across both EC2 instances behind the load balancer. 
 
@@ -295,17 +322,29 @@ EFS provides shared storage between the two app servers. This is essential for W
 
 ### 🔍 What We Verified:
 
-- The WordPress **setup screen** loaded successfully from the ALB DNS
+- The WordPress **setup screen** loaded successfully from the ALB DNS  
 - Created a **WordPress site** with:
   - Site Title
   - Admin Username & Password
   - Admin Email
 - Logged into the **WordPress dashboard**
+
+![VPC Setup](images/Wordpress1.png)
+![VPC Setup](images/Wordpress2.png)
+![VPC Setup](images/WordpressLogin.png)
+![VPC Setup](images/Wordpress3.png)
+![VPC Setup](images/Wordpress4.png)
+
+
 - Uploaded a media file via WordPress → Confirmed it was:
   - Saved in the EFS (shared between app instances)
   - Visible from both app instances (verifying EFS mount was successful)
 - Ensured proper **load balancing** by refreshing the page multiple times
 - Verified **database connection** to RDS was working by confirming post/page storage
+- New Home Page
+![VPC Setup](images/WordpressHome.png)
+
+![VPC Setup](images/WordpressHome2.png)
 
 🧪 **Final Check**:  
 Our WordPress site is now accessible globally via the ALB DNS. The setup supports:
@@ -313,10 +352,7 @@ Our WordPress site is now accessible globally via the ALB DNS. The setup support
 - Shared file system (EFS)
 - Centralized database (RDS)
 - Auto-scalable app tier (EC2 behind ALB)
-
-📸 Screenshot:
-![Cleanup](images/cleanup.png)
-
+  
 ---
 
 ## 🚧 Challenges I Faced
